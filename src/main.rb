@@ -1,0 +1,3 @@
+require "socket"
+
+puts "Hi"
