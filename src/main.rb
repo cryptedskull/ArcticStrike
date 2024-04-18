@@ -65,9 +65,9 @@ def command_parse(buf)
     when "exit" || "quit"
         Commands.exit(args)
     when "client"
-        Commands.client(args)
+        Commands.connect(args)
     when "server"
-        Commands.server(args)
+        Commands.listen(args)
     when "clear"
         Commands.clear(args)
     else

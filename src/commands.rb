@@ -7,7 +7,7 @@ module Commands
         print "\e[2J\e[f"
     end
 
-    def self.client(args)
+    def self.connect(args)
         if args.length < 3
             puts "Usage: connect <target_ip> <target_port> <message>"
             return
@@ -15,7 +15,7 @@ module Commands
         tcp_connect(args[0], args[1].to_i, args[2..].join(' '))
     end
 
-    def self.server(args)
+    def self.listen(args)
         if args.length < 2
             puts "Usage: server <listen_ip> <listen_port> [interrupt (true/false)]"
             return
