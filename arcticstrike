@@ -14,7 +14,7 @@ require_relative "src/user_interface/prompt.rb"
 @options = {}
 
 # Handle user interrupt
-trap("INT") {Handler.interrupt()}
+trap("INT") {ArcticStrike::Handler.interrupt()}
 
 
 OptionParser.new do |opts|
@@ -40,6 +40,6 @@ OptionParser.new do |opts|
 end.parse!
 
 
-Commands.banner("resources/banner.txt")
+ArcticStrike::Commands.banner("resources/banner.txt")
 
 user_prompt()
