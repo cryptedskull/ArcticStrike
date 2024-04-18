@@ -72,9 +72,9 @@ def command_parse(buf)
         puts "[!] Now exiting ArcticStrike, goodbye!"
         exit
     elsif command == "client"
-        tcp_connect("127.0.0.1", 9000, command_args)
+        tcp_connect("127.0.0.1", 8080, command_args)
     elsif command == "server"
-        tcp_listen("0.0.0.0", 9000)
+        tcp_listen("0.0.0.0", 8080)
     elsif command == "clear"
         clear_screen()
     else
