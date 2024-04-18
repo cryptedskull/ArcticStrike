@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'ipaddr'
+require 'readline'
+
+require_relative "src/network/tcp"
+require_relative "src/commands"
+require_relative "src/command_parser"
+require_relative "src/user_interface/prompt.rb"
+
+@PROGRAM_NAME = "ArcticStrike"
+@ACTIVE_AREA = "Dash"
+@options = {}
+
+# Handle user interrupt
+trap("INT") {Handler.interrupt()}
+
+
+OptionParser.new do |opts|
+    opts.banner = "Usage: arctic [options]"
+    opts.on("-v","--verbose","Show extra information") do
+        @options[:verbose] = true
+    end
+    opts.on("-d","--daemon","Run in the background") do
+        @options[:daemon] = true
+    end
+
+ opts.on("--server-ip IP_ADDRESS","Server IP address to use") do |server_ip_addr|
+        begin
+            IPAddr.new(server_ip_addr)
+        rescue
+            raise OptionParser::InvalidArgument, "Invalid IP Address used"
+        end
+
+        @options[:server_ip_address] = server_ip_addr
+
+        puts "You are using the IP address: #{server_ip_addr}"
+    end
+end.parse!
+
+
+Commands.banner("resources/banner.txt")
+
+user_prompt()

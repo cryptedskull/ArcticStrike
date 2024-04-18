@@ -12,7 +12,7 @@ module Commands
             puts "Usage: connect <target_ip> <target_port> <message>"
             return
           end
-        tcp_connect(args[0], args[1].to_i, args[2..].join(' '))
+        Networking.tcp_connect(args[0], args[1].to_i, args[2..].join(' '))
     end
 
     def self.listen(args)
@@ -20,7 +20,33 @@ module Commands
             puts "Usage: server <listen_ip> <listen_port> [interrupt (true/false)]"
             return
         end
-        tcp_listen(args[0], args[1].to_i, args[2].to_s)
+        
+        Networking.tcp_listen(args[0], args[1].to_i, args[2].to_s)
     end
 
+
+    def self.exit()
+        Handler.interrupt()
+    end
+
+    def self.banner(banner_file)
+        banner = File.readlines(banner_file).map(&:chomp)
+        terminal_width = `tput cols`.to_i
+      
+        banner.each do |line|
+          padding = (terminal_width - line.length) / 2
+          padding.times { print " " }
+          puts line
+        end
+      end
+
+end
+
+
+module Handler
+    def self.interrupt
+        Commands.clear()
+        puts "[!] Now exiting ArcticStrike, goodbye!"
+        exit
+    end
 end
