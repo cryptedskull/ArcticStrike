@@ -41,5 +41,5 @@ end.parse!
 
 
 ArcticStrike::Commands.banner("resources/banner.txt")
-
+print "\e[?12h"
 user_prompt()
