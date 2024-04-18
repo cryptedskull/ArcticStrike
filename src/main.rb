@@ -4,17 +4,14 @@ require 'optparse'
 require 'ipaddr'
 require 'readline'
 
-load "network/tcp_connections.rb"
+require_relative "network/tcp_connections"
+require_relative "commands"
 
 @PROGRAM_NAME = "ArcticStrike"
 @options = {}
 
-def clear_screen
-    print "\e[2J\e[f"
-  end
-
 def interrupt_handler
-    clear_screen()
+    Commands.clear()
     puts "[!] Now exiting ArcticStrike, goodbye!"
     exit
 end
@@ -30,7 +27,7 @@ OptionParser.new do |opts|
         @options[:daemon] = true
     end
 
-    opts.on("--server-ip IP_ADDRESS","Server IP address to use") do |server_ip_addr|
+ opts.on("--server-ip IP_ADDRESS","Server IP address to use") do |server_ip_addr|
         begin
             IPAddr.new(server_ip_addr)
         rescue
@@ -58,34 +55,29 @@ end
 
   
 def command_parse(buf)
-    split_command = buf.scan(/(".*"|[\w\:\:\.\-\\]+)/).flatten
-
-    command = split_command.first
-    command_args = split_command.drop(1)
-
-    if command == "whoami"
-        puts "[>] You are the user, duh!"
-    elsif command == "help"
-        puts "Can't help right now, I'm not developed yet"
-    elsif command == "exit" || split_command.first == "quit"
-        clear_screen()
-        puts "[!] Now exiting ArcticStrike, goodbye!"
-        exit
-    elsif command == "client"
-        tcp_connect("127.0.0.1", 8080, command_args)
-    elsif command == "server"
-        tcp_listen("0.0.0.0", 8080)
-    elsif command == "clear"
-        clear_screen()
+    args = buf.strip.split(/\s+/)
+    command = args.shift
+    case command
+    when "whoami"
+        Commands.whoami(args)
+    when "help"
+        Commands.help(args)
+    when "exit" || "quit"
+        Commands.exit(args)
+    when "client"
+        Commands.client(args)
+    when "server"
+        Commands.server(args)
+    when "clear"
+        Commands.clear(args)
     else
-        puts "[>] #{split_command.first}"
+        puts "Invalid command: #{command}"
     end
 
     return
 end
 
 display_banner("../resources/banner.txt")
-
 
 while buf = Readline.readline("<<#{@PROGRAM_NAME}>> :: ", true)
     command_parse(buf)

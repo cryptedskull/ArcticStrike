@@ -9,14 +9,17 @@ def tcp_connect(target_ip, target_port, message)
 end
 
 
-def tcp_listen(listen_ip, listen_port)
-    server = TCPServer.new(listen_port)
-    #loop do #REMOVE LOOP, ONLY ACCEPT ONCE
+def tcp_listen(listen_ip, listen_port, interrupt = "false")
+    server = TCPServer.new(listen_ip, listen_port)
+    loop do
         client = server.accept
         client_message = client.gets
         puts client_message
-        client.puts "Hey it's the server, zup?"
+        client.puts "Hey, it's the server. What's up?"
         client.close
-    server.close()
-    #end
+        if interrupt.downcase != "false"
+            break
+        end
+    end
+    server.close
 end
