@@ -1,7 +1,7 @@
 module ArcticStrike
   module Error
     def self.quit
-      ArcticStrike::Commands.clear
+      ArcticStrike::Commands.execute('clear')
       puts '[!] Now exiting ArcticStrike, goodbye!'
       exit
     end

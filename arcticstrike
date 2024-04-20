@@ -6,13 +6,14 @@ require_relative 'src/command_parser'
 require_relative 'src/network/sockets'
 require_relative 'src/user_interface/prompt'
 require_relative 'src/user_interface/options'
-require_relative 'src/error/handler'
+require_relative 'src/error'
 require_relative 'src/network/host_link'
+require_relative 'src/network/http'
 
 # Handle user interrupt
 trap('INT') { ArcticStrike::Error.quit }
 
 ArcticStrike::Options.program_start
 
-ArcticStrike::Commands.banner('resources/banner.txt')
+ArcticStrike::Commands.execute("banner")
 ArcticStrike::UI.user_prompt()

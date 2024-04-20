@@ -1,18 +1,18 @@
 module ArcticStrike
-  module Commands
-    module Parser #Handles the parsing of commands
-      def self.input(buf)
-        args = buf.strip.split(/\s+/)
-        command = args.shift
-        command_method = Commands.method(command) if Commands.respond_to?(command)
-        if command_method
-          command_method.call(args)
-        elsif %w[exit quit].include?(command)
-          Commands.exit
-        else
-          puts "Invalid command: #{command}"
-        end
-        nil
+  # Handles the parsing of commands
+  module Parser
+    # Parses the input buffer, executes the corresponding command
+    def self.input(buf)
+      command_name, *args = buf.strip.split(/\s+/)
+      command_name = command_name.to_sym
+      command = COMMANDS[command_name]
+
+      if command
+        command.call(args)
+      elsif %i[exit quit].include?(command_name)
+        Commands.execute(command_name.to_s) # Trigger exit or quit command
+      else
+        puts "Invalid command: #{command_name}"
       end
     end
   end
