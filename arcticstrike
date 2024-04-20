@@ -4,10 +4,11 @@ require 'optparse'
 require 'ipaddr'
 require 'readline'
 
-require_relative "src/network/tcp"
+
+require_relative "src/network/sockets"
 require_relative "src/commands"
 require_relative "src/command_parser"
-require_relative "src/user_interface/prompt.rb"
+require_relative "src/user_interface/prompt"
 
 @PROGRAM_NAME = "ArcticStrike"
 @ACTIVE_AREA = "Dash"
@@ -15,7 +16,6 @@ require_relative "src/user_interface/prompt.rb"
 
 # Handle user interrupt
 trap("INT") {ArcticStrike::Handler.interrupt()}
-
 
 OptionParser.new do |opts|
     opts.banner = "Usage: arctic [options]"

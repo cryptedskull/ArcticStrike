@@ -1,2 +1,5 @@
 .vscode/
 testing/
+.ruby-lsp/
+.rbenv/
+.ruby-version

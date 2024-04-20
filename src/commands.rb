@@ -1,36 +1,37 @@
 module ArcticStrike
-    module Commands
-        def self.whoami(args)
-            puts "You are the user, duh!"
+module Commands
+    def self.whoami(args)
+        puts "You are the user, duh!"
+    end
+
+    def self.clear()
+        print "\e[2J\e[f"
+    end
+
+    def self.connect(args)
+        if args.length < 3
+            puts "Usage: connect <target_ip> <target_port> <message>"
+            return
         end
+        ArcticStrike::Networking::Sockets.tcp_connect(args[0], args[1].to_i, args[2..].join(' '))
+    end
 
-        def self.clear()
-            print "\e[2J\e[f"
+    def self.listen(args)
+        if args.length < 2
+            puts "Usage: server <listen_ip> <listen_port>"
+            return
         end
-
-        def self.connect(args)
-            if args.length < 3
-                puts "Usage: connect <target_ip> <target_port> <message>"
-                return
-            end
-            Networking.tcp_connect(args[0], args[1].to_i, args[2..].join(' '))
-        end
-
-        def self.listen(args)
-            if args.length < 2
-                puts "Usage: server <listen_ip> <listen_port> [interrupt (true/false)]"
-                return
-            end
-            
-            Networking.tcp_listen(args[0], args[1].to_i, args[2].to_s)
-        end
+        
+        ArcticStrike::Networking::Sockets.tcp_listen(args[0], args[1].to_i)
+    end
 
 
-        def self.exit()
-            Handler.interrupt()
-        end
+    def self.exit()
+        Handler.interrupt()
+    end
 
-        def self.banner(banner_file)
+    def self.banner(banner_file = "resources/banner.txt")
+        begin
             banner = File.readlines(banner_file).map(&:chomp)
             terminal_width = `tput cols`.to_i
         
@@ -39,15 +40,17 @@ module ArcticStrike
             padding.times { print " " }
             puts line
             end
+        rescue => e
+            puts "[ERROR]> #{e}"
         end
     end
+end
 
-
-    module Handler
-        def self.interrupt
-            Commands.clear()
-            puts "[!] Now exiting ArcticStrike, goodbye!"
-            exit
-        end
+module Handler
+    def self.interrupt
+        Commands.clear()
+        puts "[!] Now exiting ArcticStrike, goodbye!"
+        exit
     end
+end
 end
