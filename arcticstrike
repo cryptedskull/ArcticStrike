@@ -1,45 +1,18 @@
 #!/usr/bin/env ruby
-
-require 'optparse'
-require 'ipaddr'
 require 'readline'
 
-
-require_relative "src/network/sockets"
-require_relative "src/commands"
-require_relative "src/command_parser"
-require_relative "src/user_interface/prompt"
-
-@PROGRAM_NAME = "ArcticStrike"
-@ACTIVE_AREA = "Dash"
-@options = {}
+require_relative 'src/commands'
+require_relative 'src/command_parser'
+require_relative 'src/network/sockets'
+require_relative 'src/user_interface/prompt'
+require_relative 'src/user_interface/options'
+require_relative 'src/error/handler'
+require_relative 'src/network/host_link'
 
 # Handle user interrupt
-trap("INT") {ArcticStrike::Handler.interrupt()}
+trap('INT') { ArcticStrike::Error.quit }
 
-OptionParser.new do |opts|
-    opts.banner = "Usage: arctic [options]"
-    opts.on("-v","--verbose","Show extra information") do
-        @options[:verbose] = true
-    end
-    opts.on("-d","--daemon","Run in the background") do
-        @options[:daemon] = true
-    end
+ArcticStrike::Options.program_start
 
- opts.on("--server-ip IP_ADDRESS","Server IP address to use") do |server_ip_addr|
-        begin
-            IPAddr.new(server_ip_addr)
-        rescue
-            raise OptionParser::InvalidArgument, "Invalid IP Address used"
-        end
-
-        @options[:server_ip_address] = server_ip_addr
-
-        puts "You are using the IP address: #{server_ip_addr}"
-    end
-end.parse!
-
-
-ArcticStrike::Commands.banner("resources/banner.txt")
-print "\e[?12h"
-user_prompt()
+ArcticStrike::Commands.banner('resources/banner.txt')
+ArcticStrike::UI.user_prompt()
