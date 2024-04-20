@@ -14,7 +14,7 @@ module ArcticStrike
         client.close
       end
 
-      def self.tcp_listen(listen_ip, listen_port, interrupt = 'false')
+      def self.tcp_listen(listen_ip, listen_port)
         trap('INT') do
           puts "\n"
           break
@@ -30,10 +30,12 @@ module ArcticStrike
             client.puts Time.new.strftime('%X')
             client.close
           end
+        rescue LocalJumpError
+          puts 'Quitting listner...'
         rescue StandardError => e
-          puts "[ERROR]> #{e}" if e != 'break from proc-closure'
+          ArcticStrike::Error.put_error(e)
         ensure
-          server.close if server
+          server&.close
         end
       end
     end

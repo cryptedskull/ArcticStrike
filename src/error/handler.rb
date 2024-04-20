@@ -6,7 +6,7 @@ module ArcticStrike
       exit
     end
 
-    def self.error_out(args)
+    def self.put_error(args)
       puts "[! Error !] > #{args}"
     end
   end
