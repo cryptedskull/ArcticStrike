@@ -1,3 +1,5 @@
+require 'readline'
+
 module ArcticStrike
   module UI
     PROGRAM_NAME = 'ArcticStrike'

@@ -3,24 +3,18 @@ module ArcticStrike
   module Networking
     # Network sockets
     module Sockets
-      trap('INT') do
-        puts "\n"
-        break
-      end
-
       def self.tcp_connect(target_ip, target_port)
         client = TCPSocket.new(target_ip, target_port)
-        loop do
-          message = Readline.readline("[#{target_ip}:#{target_port}] <<< ")
-          send = client.puts message
-          response = client.gets
-          puts response
-          client.close
-        end
+        puts "[i] #{client.peeraddr[3]}:#{client.peeraddr[1]} CONNECTED!"
+        message = Readline.readline("Message >>> ")
+        send = client.puts message
+        response = client.gets
+        puts "[#{target_ip}:#{target_port}] >>> #{response}"
+        client.close
+      rescue LocalJumpError
+        puts 'Quitting listner...'
       rescue StandardError => e
         ArcticStrike::Error.put_error(e)
-      ensure
-        client&.close
       end
 
       def self.tcp_listen(listen_ip, listen_port)
@@ -28,11 +22,11 @@ module ArcticStrike
         puts ">>> Now listening for connections on #{listen_ip}:#{listen_port} <<<"
         loop do
           client = server.accept
+          puts "[i] #{client.peeraddr[3]}:#{client.peeraddr[1]} CONNECTED!"
           client_message = client.gets
-          puts "[#{client.peeraddr[3]}:#{client.peeraddr[1]}] >>> #{client_message}"
-          client.puts Readline.readline("[#{client.peeraddr[3]}:#{client.peeraddr[1]}] <<< ")
+          puts "#{client.peeraddr[3]}:#{client.peeraddr[1]} >>> #{client_message}"
+          client.puts 'Message received!'
         end
-        client.close
       rescue LocalJumpError
         puts 'Quitting listner...'
       rescue StandardError => e

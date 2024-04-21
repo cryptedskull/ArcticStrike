@@ -1,19 +1,16 @@
 #!/usr/bin/env ruby
-require 'readline'
-
-require_relative 'src/commands'
-require_relative 'src/command_parser'
-require_relative 'src/network/sockets'
-require_relative 'src/user_interface/prompt'
-require_relative 'src/user_interface/options'
-require_relative 'src/error'
-require_relative 'src/network/host_link'
-require_relative 'src/network/http'
+require_relative 'lib/arcticstrike/commands'
+require_relative 'lib/arcticstrike/command_parser'
+require_relative 'lib/arcticstrike/network/sockets'
+require_relative 'lib/arcticstrike/user_interface/prompt'
+require_relative 'lib/arcticstrike/user_interface/options'
+require_relative 'lib/arcticstrike/error'
+require_relative 'lib/arcticstrike/network/host_link'
+require_relative 'lib/arcticstrike/network/http'
 
 # Handle user interrupt
 trap('INT') { ArcticStrike::Error.quit }
-
 ArcticStrike::Options.program_start
 
-ArcticStrike::Commands.execute("banner")
-ArcticStrike::UI.user_prompt()
+ArcticStrike::Commands.execute('banner')
+ArcticStrike::UI.user_prompt

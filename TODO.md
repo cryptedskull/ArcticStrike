@@ -1,18 +1,26 @@
 ## TODO
 - [ ] Add modular encryption for communications
 - [ ] Setup standard communication method throughout protocols
-- [ ] Exploitation Framework
+- Exploitation
     - [ ] Use established exploits (for now use published ones)
     - [ ] Custom exploit file/folder (set with optparse)
     - [ ] Exploit customization (LHOST, RHOST, etc)
-    - [ ]
-- [ ] Payload Development
+- Payload Development
     - [ ] Automatic payload generation
     - [ ] Integrate with established communication method
     - [ ] Modular options to include with payload
+- Command and Control
+    - [ ] Establish baseline communication "standard"
+    - [ ] Integrate with multiple protocols/methods
+- Utilities
+    - [ ] Web server for easy file delivery (opt. to include only certain file(s)/folder)
+    - [ ] TCP connector/receiver utility, not too dissimilar to netcat
+    - [ ] Hashing utilities integration
 
 ## Planned Features / Ideas
-- [ ] Fully integrated C2 server with custom/modular callback methods, and daemon for designated longterm C2 servers
+- [ ] Windows/MacOS compatability
+- [ ] Fully integrated C2 server with custom/modular callback methods
+- [ ] Daemon for designated longterm C2 servers
 - [ ] Work with existing exploits written in Ruby, Python, etc. Existing post-exploitation tool integration
 - [ ] Purpose-built exploit compiler and development tools
 - [ ] Multi-target handling and fleet actions/control
