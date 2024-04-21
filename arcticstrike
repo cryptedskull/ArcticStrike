@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 require_relative 'lib/arcticstrike/commands'
 require_relative 'lib/arcticstrike/command_parser'
 require_relative 'lib/arcticstrike/network/sockets'
