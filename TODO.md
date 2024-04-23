@@ -1,4 +1,6 @@
 ## TODO
+- [ ] Establish reusable commands + better handling
+- [ ] Organize/document namespaces
 - [ ] Add modular encryption for communications
 - [ ] Setup standard communication method throughout protocols
 - Exploitation
@@ -19,10 +21,10 @@
 
 ## Planned Features / Ideas
 - [ ] Windows/MacOS compatability
-- [ ] Fully integrated C2 server with custom/modular callback methods
-- [ ] Daemon for designated longterm C2 servers
+- [ ] Daemon for designated longterm C2 activity
 - [ ] Work with existing exploits written in Ruby, Python, etc. Existing post-exploitation tool integration
 - [ ] Purpose-built exploit compiler and development tools
 - [ ] Multi-target handling and fleet actions/control
 - [ ] Containerization of target-handling processes to ensure host security
 - [ ] Partially automate workflow of payload generation and C2 configuration
+- [ ] Tamper/reverse engineering detection on server-side

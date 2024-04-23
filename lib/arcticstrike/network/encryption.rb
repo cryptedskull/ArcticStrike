@@ -1,14 +1,17 @@
-require "openssl"
+require 'openssl'
 
 module ArcticStrike
-module Networking
-module Encryption   # Start encryption
-
-    def self.encrypt_string(args)
+  module Networking
+    # Network encryption
+    module Encryption
+      def self.encrypt_string(args)
         string = args[0]
         key = args[1]
-    end
+      end
 
-end                 # End encryption
-end
+      def self.establish_tunnel(args)
+        puts 'Unimplemented'
+      end
+    end
+  end
 end

@@ -1,0 +1,8 @@
+module ArcticStrike::Networking
+  # Handle DNS connections
+  module DNS
+    def self.start_server(args)
+      puts 'Hello'
+    end
+  end
+end
