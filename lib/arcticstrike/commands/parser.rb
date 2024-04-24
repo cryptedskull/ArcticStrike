@@ -4,6 +4,11 @@ module ArcticStrike
     # Parses the input buffer, executes the corresponding command
     def self.input(buf)
       command_name, *args = buf.strip.split(/\s+/)
+      if command_name.nil? || command_name.empty?
+        puts "Invalid command: #{buf}"
+        return
+      end
+
       command_name = command_name.to_sym
       command = COMMANDS[command_name]
 

@@ -1,7 +1,6 @@
 module ArcticStrike
   # Command and control
   module C2
-
     def self.start_server
       puts 'Hi'
     end

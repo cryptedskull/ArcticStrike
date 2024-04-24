@@ -3,3 +3,7 @@ testing/
 .ruby-lsp/
 .rbenv/
 .ruby-version
+.yardoc/
+
+# TEMPORARY, NOT USEFUL AS OF NOW
+doc/

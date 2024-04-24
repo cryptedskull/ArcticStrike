@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 module ArcticStrike
   # Error handling
   module Error
@@ -7,10 +6,6 @@ module ArcticStrike
       ArcticStrike::Commands.execute('clear')
       puts '[!] Now exiting ArcticStrike, goodbye!'
       exit
-    end
-
-    def self.put_error(args)
-      puts "[! Error !] > #{args}"
     end
   end
 end

@@ -14,7 +14,7 @@ module ArcticStrike
       rescue LocalJumpError
         puts 'Quitting listner...'
       rescue StandardError => e
-        ArcticStrike::Error.put_error(e)
+        ArcticStrike::UserInterface.put_error(e)
       end
 
       def self.tcp_listen(listen_ip, listen_port)
@@ -30,7 +30,7 @@ module ArcticStrike
       rescue LocalJumpError
         puts 'Quitting listner...'
       rescue StandardError => e
-        ArcticStrike::Error.put_error(e)
+        ArcticStrike::UserInterface.put_error(e)
       ensure
         server&.close
       end
